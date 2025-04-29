@@ -1,0 +1,101 @@
+{
+  "app": {
+    "name": "सरकारी संपत्ति खोज पोर्टल",
+    "tagline": "आधिकारिक संपत्ति रिकॉर्ड और सूचना प्रणाली"
+  },
+  "nav": {
+    "home": "होम",
+    "search": "संपत्ति खोजें",
+    "login": "लॉगिन",
+    "register": "रजिस्टर",
+    "dashboard": "डैशबोर्ड",
+    "logout": "लॉगआउट",
+    "langSwitch": "भाषा बदलें"
+  },
+  "home": {
+    "welcome": "संपत्ति खोज पोर्टल में आपका स्वागत है",
+    "description": "भारत के ग्रामीण और शहरी क्षेत्रों में आधिकारिक संपत्ति रिकॉर्ड खोजें, सत्यापित करें और एक्सेस करें",
+    "startSearch": "खोज शुरू करें",
+    "loginPrompt": "सहेजी गई खोजों तक पहुंचने के लिए लॉगिन करें",
+    "recentUpdates": "हाल के अपडेट",
+    "helpSection": "सहायता और जानकारी"
+  },
+  "search": {
+    "title": "संपत्ति रिकॉर्ड खोजें",
+    "propertyId": "संपत्ति आईडी",
+    "registrationNumber": "पंजीकरण संख्या",
+    "ownerName": "मालिक का नाम",
+    "address": "पता",
+    "area": "क्षेत्र",
+    "urban": "शहरी",
+    "rural": "ग्रामीण",
+    "both": "दोनों",
+    "submit": "खोजें",
+    "reset": "रीसेट",
+    "advancedSearch": "उन्नत खोज विकल्प"
+  },
+  "auth": {
+    "login": "लॉगिन",
+    "register": "रजिस्टर",
+    "email": "ईमेल पता",
+    "mobile": "मोबाइल नंबर",
+    "password": "पासवर्ड",
+    "confirmPassword": "पासवर्ड की पुष्टि करें",
+    "name": "पूरा नाम",
+    "otp": "OTP दर्ज करें",
+    "otpSent": "आपके मोबाइल नंबर पर OTP भेजा गया",
+    "resendOtp": "OTP पुनः भेजें",
+    "verifyOtp": "OTP सत्यापित करें",
+    "registerSuccess": "पंजीकरण सफल रहा",
+    "loginSuccess": "लॉगिन सफल रहा"
+  },
+  "results": {
+    "title": "खोज परिणाम",
+    "count": "{{count}} संपत्तियां मिलीं",
+    "noResults": "आपके मानदंडों से मेल खाती कोई संपत्ति नहीं मिली",
+    "refineSearch": "अपनी खोज को परिष्कृत करें",
+    "sortBy": "क्रमबद्ध करें",
+    "filter": "फ़िल्टर"
+  },
+  "property": {
+    "details": "संपत्ति विवरण",
+    "id": "संपत्ति आईडी",
+    "regNumber": "पंजीकरण संख्या",
+    "owner": "मालिक",
+    "address": "पता",
+    "area": "क्षेत्र प्रकार",
+    "landSize": "भूमि का आकार",
+    "status": "स्थिति",
+    "classification": "वर्गीकरण",
+    "lastUpdated": "अंतिम अपडेट"
+  },
+  "dashboard": {
+    "welcome": "स्वागत है {{name}}",
+    "savedSearches": "सहेजी गई खोजें",
+    "recentSearches": "हाल की खोजें",
+    "notifications": "सूचनाएं",
+    "profile": "प्रोफाइल",
+    "settings": "सेटिंग्स"
+  },
+  "footer": {
+    "copyright": "© {{year}} भारत सरकार। सर्वाधिकार सुरक्षित।",
+    "disclaimer": "अस्वीकरण",
+    "privacyPolicy": "गोपनीयता नीति",
+    "termsOfUse": "उपयोग की शर्तें",
+    "contactUs": "संपर्क करें",
+    "helpline": "हेल्पलाइन: 1800-XXX-XXXX"
+  },
+  "common": {
+    "loading": "लोड हो रहा है...",
+    "error": "एक त्रुटि हुई",
+    "retry": "पुनः प्रयास करें",
+    "cancel": "रद्द करें",
+    "save": "सहेजें",
+    "edit": "संपादित करें",
+    "delete": "हटाएं",
+    "captcha": "कृपया CAPTCHA पूरा करें",
+    "captchaRefresh": "CAPTCHA रीफ्रेश करें",
+    "requiredField": "यह फ़ील्ड आवश्यक है",
+    "invalidInput": "अमान्य इनपुट"
+  }
+}

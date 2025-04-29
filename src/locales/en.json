@@ -1,0 +1,101 @@
+{
+  "app": {
+    "name": "LandLex",
+    "tagline": "Official Property Records & Information System"
+  },
+  "nav": {
+    "home": "Home",
+    "search": "About Us",
+    "login": "Login",
+    "register": "Register",
+    "dashboard": "Dashboard",
+    "logout": "Logout",
+    "langSwitch": "Change Language"
+  },
+  "home": {
+    "welcome": "Welcome to the Property Search Portal",
+    "description": "Search, verify and access official property records across rural and urban areas of India",
+    "startSearch": "Start Search",
+    "loginPrompt": "Login to access saved searches",
+    "recentUpdates": "Recent Updates",
+    "helpSection": "Help & Information"
+  },
+  "search": {
+    "title": "Search Property Records",
+    "propertyId": "Property ID",
+    "registrationNumber": "Registration Number",
+    "ownerName": "Owner Name",
+    "address": "Address",
+    "area": "Area",
+    "urban": "Urban",
+    "rural": "Rural",
+    "both": "Both",
+    "submit": "Search",
+    "reset": "Reset",
+    "advancedSearch": "Advanced Search Options"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email Address",
+    "mobile": "Mobile Number",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Full Name",
+    "otp": "Enter OTP",
+    "otpSent": "OTP sent to your mobile number",
+    "resendOtp": "Resend OTP",
+    "verifyOtp": "Verify OTP",
+    "registerSuccess": "Registration successful",
+    "loginSuccess": "Login successful"
+  },
+  "results": {
+    "title": "Search Results",
+    "count": "{{count}} properties found",
+    "noResults": "No properties found matching your criteria",
+    "refineSearch": "Refine your search",
+    "sortBy": "Sort by",
+    "filter": "Filter"
+  },
+  "property": {
+    "details": "Property Details",
+    "id": "Property ID",
+    "regNumber": "Registration Number",
+    "owner": "Owner",
+    "address": "Address",
+    "area": "Area Type",
+    "landSize": "Land Size",
+    "status": "Status",
+    "classification": "Classification",
+    "lastUpdated": "Last Updated"
+  },
+  "dashboard": {
+    "welcome": "Welcome {{name}}",
+    "savedSearches": "Saved Searches",
+    "recentSearches": "Recent Searches",
+    "notifications": "Notifications",
+    "profile": "Profile",
+    "settings": "Settings"
+  },
+  "footer": {
+    "copyright": "© {{year}} Government of India. All Rights Reserved.",
+    "disclaimer": "Disclaimer",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfUse": "Terms of Use",
+    "contactUs": "Contact Us",
+    "helpline": "Helpline: 1800-XXX-XXXX"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "captcha": "Please complete the CAPTCHA",
+    "captchaRefresh": "Refresh CAPTCHA",
+    "requiredField": "This field is required",
+    "invalidInput": "Invalid input"
+  }
+}

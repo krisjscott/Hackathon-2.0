@@ -1,0 +1,101 @@
+{
+  "app": {
+    "name": "सरकारी मालमत्ता शोध पोर्टल",
+    "tagline": "अधिकृत मालमत्ता नोंदी आणि माहिती प्रणाली"
+  },
+  "nav": {
+    "home": "मुख्यपृष्ठ",
+    "search": "मालमत्ता शोध",
+    "login": "लॉगिन",
+    "register": "नोंदणी करा",
+    "dashboard": "डॅशबोर्ड",
+    "logout": "लॉगआउट",
+    "langSwitch": "भाषा बदला"
+  },
+  "home": {
+    "welcome": "मालमत्ता शोध पोर्टलवर आपले स्वागत आहे",
+    "description": "भारतातील ग्रामीण आणि शहरी भागातील अधिकृत मालमत्ता नोंदी शोधा, सत्यापित करा आणि प्रवेश करा",
+    "startSearch": "शोध सुरू करा",
+    "loginPrompt": "जतन केलेले शोध प्रवेश करण्यासाठी लॉगिन करा",
+    "recentUpdates": "अलीकडील अपडेट्स",
+    "helpSection": "मदत आणि माहिती"
+  },
+  "search": {
+    "title": "मालमत्ता नोंदी शोधा",
+    "propertyId": "मालमत्ता आयडी",
+    "registrationNumber": "नोंदणी क्रमांक",
+    "ownerName": "मालकाचे नाव",
+    "address": "पत्ता",
+    "area": "क्षेत्र",
+    "urban": "शहरी",
+    "rural": "ग्रामीण",
+    "both": "दोन्ही",
+    "submit": "शोधा",
+    "reset": "रीसेट",
+    "advancedSearch": "प्रगत शोध पर्याय"
+  },
+  "auth": {
+    "login": "लॉगिन",
+    "register": "नोंदणी करा",
+    "email": "ईमेल पत्ता",
+    "mobile": "मोबाईल नंबर",
+    "password": "पासवर्ड",
+    "confirmPassword": "पासवर्ड पुष्टी करा",
+    "name": "पूर्ण नाव",
+    "otp": "OTP प्रविष्ट करा",
+    "otpSent": "आपल्या मोबाईल नंबरवर OTP पाठविला आहे",
+    "resendOtp": "OTP पुन्हा पाठवा",
+    "verifyOtp": "OTP सत्यापित करा",
+    "registerSuccess": "नोंदणी यशस्वी झाली",
+    "loginSuccess": "लॉगिन यशस्वी झाले"
+  },
+  "results": {
+    "title": "शोध परिणाम",
+    "count": "{{count}} मालमत्ता सापडल्या",
+    "noResults": "आपल्या निकषांशी जुळणारी कोणतीही मालमत्ता सापडली नाही",
+    "refineSearch": "आपला शोध सुधारित करा",
+    "sortBy": "क्रमवारी लावा",
+    "filter": "फिल्टर"
+  },
+  "property": {
+    "details": "मालमत्ता तपशील",
+    "id": "मालमत्ता आयडी",
+    "regNumber": "नोंदणी क्रमांक",
+    "owner": "मालक",
+    "address": "पत्ता",
+    "area": "क्षेत्र प्रकार",
+    "landSize": "जमिनीचा आकार",
+    "status": "स्थिती",
+    "classification": "वर्गीकरण",
+    "lastUpdated": "अंतिम अद्यतनित"
+  },
+  "dashboard": {
+    "welcome": "स्वागत आहे {{name}}",
+    "savedSearches": "जतन केलेले शोध",
+    "recentSearches": "अलीकडील शोध",
+    "notifications": "सूचना",
+    "profile": "प्रोफाईल",
+    "settings": "सेटिंग्ज"
+  },
+  "footer": {
+    "copyright": "© {{year}} भारत सरकार. सर्व हक्क राखीव.",
+    "disclaimer": "अस्वीकरण",
+    "privacyPolicy": "गोपनीयता धोरण",
+    "termsOfUse": "वापरण्याच्या अटी",
+    "contactUs": "संपर्क करा",
+    "helpline": "हेल्पलाईन: 1800-XXX-XXXX"
+  },
+  "common": {
+    "loading": "लोड होत आहे...",
+    "error": "त्रुटी आली",
+    "retry": "पुन्हा प्रयत्न करा",
+    "cancel": "रद्द करा",
+    "save": "जतन करा",
+    "edit": "संपादित करा",
+    "delete": "हटवा",
+    "captcha": "कृपया CAPTCHA पूर्ण करा",
+    "captchaRefresh": "CAPTCHA रीफ्रेश करा",
+    "requiredField": "हे क्षेत्र आवश्यक आहे",
+    "invalidInput": "अवैध इनपुट"
+  }
+}
