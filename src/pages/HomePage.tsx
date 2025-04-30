@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Search, MapPin, FileText, HelpCircle, BellRing } from 'lucide-react';
+import { Search, MapPin, FileText, HelpCircle, BellRing, Download, FileSpreadsheetIcon, FileTextIcon } from 'lucide-react';
+import jsPDF from 'jspdf';
+import * as XLSX from 'xlsx';
 
 const HomePage: React.FC = () => {
   const { t } = useTranslation();
@@ -18,6 +20,14 @@ const HomePage: React.FC = () => {
   const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [searchError, setSearchError] = useState('');
+  
+  // Reference to the quick search section
+  const quickSearchRef = useRef<HTMLDivElement>(null);
+
+  // Function to scroll to quick search section
+  const scrollToQuickSearch = () => {
+    quickSearchRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const features = [
     {
@@ -59,6 +69,58 @@ const HomePage: React.FC = () => {
       category: 'Maintenance'
     }
   ];
+
+  // Export to PDF function
+  const exportToPDF = () => {
+    if (searchResults.length === 0) return;
+
+    const doc = new jsPDF();
+    doc.setFontSize(18);
+    doc.text('Property Search Results', 14, 22);
+    doc.setFontSize(12);
+    doc.text(`Generated on: ${new Date().toLocaleDateString()}`, 14, 32);
+    
+    let y = 40;
+    
+    searchResults.forEach((result, index) => {
+      if (y > 270) { // Check if we need a new page
+        doc.addPage();
+        y = 20;
+      }
+      
+      doc.setFontSize(14);
+      doc.text(`Property ${index + 1}`, 14, y);
+      y += 10;
+      
+      doc.setFontSize(10);
+      doc.text(`Property Number: ${result['Property Number'] || 'N/A'}`, 20, y);
+      y += 6;
+      doc.text(`Registration Number: ${result['Registration Number'] || 'N/A'}`, 20, y);
+      y += 6;
+      doc.text(`Owner: ${result['Owner Name'] || 'N/A'}`, 20, y);
+      y += 6;
+      doc.text(`Location: ${result['District'] || 'N/A'}, ${result['State'] || 'N/A'}`, 20, y);
+      y += 6;
+      doc.text(`Property Type: ${result['Property Type'] || 'N/A'} (${result['Area Type'] || 'N/A'})`, 20, y);
+      y += 6;
+      doc.text(`Status: ${result['Status'] || 'N/A'}`, 20, y);
+      y += 6;
+      doc.text(`Date Issued: ${result['Date Issued'] || 'N/A'} | Date Expired: ${result['Date Expired'] || 'N/A'}`, 20, y);
+      y += 15;
+    });
+    
+    doc.save('property-search-results.pdf');
+  };
+  
+  // Export to Excel function
+  const exportToExcel = () => {
+    if (searchResults.length === 0) return;
+    
+    const worksheet = XLSX.utils.json_to_sheet(searchResults);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Property Results');
+    XLSX.writeFile(workbook, 'property-search-results.xlsx');
+  };
 
   const handleQuickSearch = async () => {
     setSearchResults([]);
@@ -169,10 +231,13 @@ const HomePage: React.FC = () => {
                 {t('home.description')}
               </p>
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                <Link to="/search" className="btn bg-accent-500 hover:bg-accent-600 text-white text-lg px-6 py-3">
+                <button 
+                  onClick={scrollToQuickSearch}
+                  className="btn bg-accent-500 hover:bg-accent-600 text-white text-lg px-6 py-3"
+                >
                   <Search className="inline-block mr-2 h-5 w-5" />
                   {t('home.startSearch')}
-                </Link>
+                </button>
                 <Link to="/login" className="btn bg-white/10 hover:bg-white/20 text-white text-lg px-6 py-3 backdrop-blur-sm">
                   {t('home.loginPrompt')}
                 </Link>
@@ -190,7 +255,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Quick Search Section */}
-      <section className="py-10 bg-white">
+      <section className="py-10 bg-white" ref={quickSearchRef}>
         <div className="container mx-auto px-4">
           <div className="bg-white rounded-lg shadow-xl p-6 md:p-8 -mt-16 md:-mt-20 relative z-10">
             <h2 className="text-xl md:text-2xl font-bold mb-6 text-center text-primary-700">
@@ -363,82 +428,103 @@ const HomePage: React.FC = () => {
                   <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-4">{searchError}</div>
                 )}
                 {searchResults.length > 0 && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {searchResults.map((result, idx) => {
-                      // Status extraction logic
-                      let status = 'Legal';
-                      let statusReason = undefined;
-                      if (result.Status) {
-                        const match = result.Status.match(/^(LEGAL|ILLEGAL)(?: \((.+)\))?$/i);
-                        if (match) {
-                          status = match[1].toUpperCase() === 'LEGAL' ? 'Legal' : 'Not Legal';
-                          if (match[2]) statusReason = match[2];
-                        } else {
-                          status = result.Status;
+                  <>
+                    <div className="flex justify-between items-center mb-4">
+                      <h3 className="text-lg font-semibold">Search Results ({searchResults.length})</h3>
+                      <div className="flex space-x-2">
+                        <button
+                          onClick={exportToPDF}
+                          className="flex items-center bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+                        >
+                          <FileTextIcon className="w-4 h-4 mr-1" />
+                          Export PDF
+                        </button>
+                        <button
+                          onClick={exportToExcel}
+                          className="flex items-center bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm"
+                        >
+                          <FileSpreadsheetIcon className="w-4 h-4 mr-1" />
+                          Export Excel
+                        </button>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                      {searchResults.map((result, idx) => {
+                        // Status extraction logic
+                        let status = 'Legal';
+                        let statusReason = undefined;
+                        if (result.Status) {
+                          const match = result.Status.match(/^(LEGAL|ILLEGAL)(?: \((.+)\))?$/i);
+                          if (match) {
+                            status = match[1].toUpperCase() === 'LEGAL' ? 'Legal' : 'Not Legal';
+                            if (match[2]) statusReason = match[2];
+                          } else {
+                            status = result.Status;
+                          }
                         }
-                      }
-                      return (
-                        <div key={idx} className="bg-green-50 border border-green-200 rounded-lg p-6 max-w-2xl mx-auto">
-                          <h3 className="text-2xl font-bold mb-4 text-green-800 text-center">Property Details</h3>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="bg-white rounded shadow p-4">
-                              <div className="text-gray-500 text-xs mb-1">Property Number</div>
-                              <div className="font-semibold text-lg">{result['Property Number']}</div>
-                            </div>
-                            <div className="bg-white rounded shadow p-4">
-                              <div className="text-gray-500 text-xs mb-1">Registration Number</div>
-                              <div className="font-semibold text-lg">{result['Registration Number']}</div>
-                            </div>
-                            <div className="bg-white rounded shadow p-4">
-                              <div className="text-gray-500 text-xs mb-1">Name</div>
-                              <div className="font-semibold">{result['Owner Name'] ? result['Owner Name'] : 'N/A'}</div>
-                            </div>
-                            <div className="bg-white rounded shadow p-4">
-                              <div className="text-gray-500 text-xs mb-1">State</div>
-                              <div className="font-semibold">{result['State']}</div>
-                            </div>
-                            <div className="bg-white rounded shadow p-4">
-                              <div className="text-gray-500 text-xs mb-1">District</div>
-                              <div className="font-semibold">{result['District']}</div>
-                            </div>
-                            <div className="bg-white rounded shadow p-4">
-                              <div className="text-gray-500 text-xs mb-1">Sub-District</div>
-                              <div className="font-semibold">{result['Sub-District']}</div>
-                            </div>
-                            <div className="bg-white rounded shadow p-4">
-                              <div className="text-gray-500 text-xs mb-1">Property Type</div>
-                              <div className="font-semibold">{result['Property Type']}</div>
-                            </div>
-                            <div className="bg-white rounded shadow p-4">
-                              <div className="text-gray-500 text-xs mb-1">Area Type</div>
-                              <div className="font-semibold">{result['Area Type']}</div>
-                            </div>
-                            <div className="bg-white rounded shadow p-4">
-                              <div className="text-gray-500 text-xs mb-1">Date Issued</div>
-                              <div className="font-semibold">{result['Date Issued']}</div>
-                            </div>
-                            <div className="bg-white rounded shadow p-4">
-                              <div className="text-gray-500 text-xs mb-1">Date Expired</div>
-                              <div className="font-semibold">{result['Date Expired']}</div>
-                            </div>
-                            <div className="bg-white rounded shadow p-4">
-                              <div className="text-gray-500 text-xs mb-1">Status</div>
-                              {status === "Legal" ? (
-                                <div className="font-semibold text-green-700">Legal</div>
-                              ) : (
-                                <div>
-                                  <div className="font-semibold text-red-700">Not Legal</div>
-                                  {statusReason && (
-                                    <div className="mt-1 text-xs text-red-600 font-semibold">Reason: {statusReason}</div>
-                                  )}
-                                </div>
-                              )}
+                        return (
+                          <div key={idx} className="bg-green-50 border border-green-200 rounded-lg p-6 max-w-2xl mx-auto">
+                            <h3 className="text-2xl font-bold mb-4 text-green-800 text-center">Property Details</h3>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div className="bg-white rounded shadow p-4">
+                                <div className="text-gray-500 text-xs mb-1">Property Number</div>
+                                <div className="font-semibold text-lg">{result['Property Number']}</div>
+                              </div>
+                              <div className="bg-white rounded shadow p-4">
+                                <div className="text-gray-500 text-xs mb-1">Registration Number</div>
+                                <div className="font-semibold text-lg">{result['Registration Number']}</div>
+                              </div>
+                              <div className="bg-white rounded shadow p-4">
+                                <div className="text-gray-500 text-xs mb-1">Name</div>
+                                <div className="font-semibold">{result['Owner Name'] ? result['Owner Name'] : 'N/A'}</div>
+                              </div>
+                              <div className="bg-white rounded shadow p-4">
+                                <div className="text-gray-500 text-xs mb-1">State</div>
+                                <div className="font-semibold">{result['State'] || 'N/A'}</div>
+                              </div>
+                              <div className="bg-white rounded shadow p-4">
+                                <div className="text-gray-500 text-xs mb-1">District</div>
+                                <div className="font-semibold">{result['District'] || 'N/A'}</div>
+                              </div>
+                              <div className="bg-white rounded shadow p-4">
+                                <div className="text-gray-500 text-xs mb-1">Sub-District</div>
+                                <div className="font-semibold">{result['Sub-District'] || 'N/A'}</div>
+                              </div>
+                              <div className="bg-white rounded shadow p-4">
+                                <div className="text-gray-500 text-xs mb-1">Property Type</div>
+                                <div className="font-semibold">{result['Property Type'] || 'N/A'}</div>
+                              </div>
+                              <div className="bg-white rounded shadow p-4">
+                                <div className="text-gray-500 text-xs mb-1">Area Type</div>
+                                <div className="font-semibold">{result['Area Type'] || 'N/A'}</div>
+                              </div>
+                              <div className="bg-white rounded shadow p-4">
+                                <div className="text-gray-500 text-xs mb-1">Date Issued</div>
+                                <div className="font-semibold">{result['Date Issued'] || 'N/A'}</div>
+                              </div>
+                              <div className="bg-white rounded shadow p-4">
+                                <div className="text-gray-500 text-xs mb-1">Date Expired</div>
+                                <div className="font-semibold">{result['Date Expired'] || 'N/A'}</div>
+                              </div>
+                              <div className="bg-white rounded shadow p-4">
+                                <div className="text-gray-500 text-xs mb-1">Status</div>
+                                {status === "Legal" ? (
+                                  <div className="font-semibold text-green-700">Legal</div>
+                                ) : (
+                                  <div>
+                                    <div className="font-semibold text-red-700">Not Legal</div>
+                                    {statusReason && (
+                                      <div className="mt-1 text-xs text-red-600 font-semibold">Reason: {statusReason}</div>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                        );
+                      })}
+                    </div>
+                  </>
                 )}
               </div>
             )}
@@ -575,6 +661,7 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+
     </div>
   );
 };

@@ -129,18 +129,6 @@ const Footer: React.FC = () => {
                 This website is designed, developed, and maintained by the Government of India.
               </p>
             </div>
-            <div className="flex items-center space-x-2">
-              <img 
-                src="https://www.mygov.in/sites/all/themes/mygov/images/digital-india.png" 
-                alt="Digital India Logo" 
-                className="h-10"
-              />
-              <img 
-                src="https://upload.wikimedia.org/wikipedia/en/c/cf/Ashoka_Chakra.svg" 
-                alt="Government of India" 
-                className="h-10"
-              />
-            </div>
           </div>
         </div>
       </div>

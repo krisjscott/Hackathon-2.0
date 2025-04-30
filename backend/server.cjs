@@ -10,13 +10,17 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const csv = require('csv-parser');
+const path = require('path');
 
 const app = express();
 app.use(cors());
 
+// Get the path to the CSV file
+const csvFilePath = path.join(__dirname, 'indian_property_data_with_status.csv');
+
 app.get('/properties', (req, res) => {
   const results = [];
-  fs.createReadStream('indian_property_data_with_status.csv')
+  fs.createReadStream(csvFilePath)
     .pipe(csv())
     .on('data', (data) => results.push(data))
     .on('end', () => {
@@ -27,7 +31,7 @@ app.get('/properties', (req, res) => {
 app.get('/property', (req, res) => {
   const { propertyId, registrationNumber } = req.query;
   const results = [];
-  fs.createReadStream('indian_property_data_with_status.csv')
+  fs.createReadStream(csvFilePath)
     .pipe(csv())
     .on('data', (data) => results.push(data))
     .on('end', () => {
